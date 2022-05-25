@@ -1,0 +1,1 @@
+let fotos = ["casa1", "casa2", "casa3", "casa4", "casa5", "casa6", "casa7", "casa8"]; 
