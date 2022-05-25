@@ -24,33 +24,44 @@ for (let i = 0; i < fotos.length; i++) {
 
     //creo un objeto "foto" almacenando los datos que vaya necesitando
     let foto = {
-        "nombre" : fotos[i], 
-        "src" : `/img/${siguienteFoto}.jpg`,
-        "ubicacion" : fototecaCont,
-        "imagen" : imagen,
-        "class" : "fotoFototeca" 
+        "nombre": fotos[i],
+        "src": `/img/${siguienteFoto}.jpg`,
+        "ubicacion": fototecaCont,
+        "imagen": imagen,
+        "class": "fotoFototeca"
     }
 
     //agrego el objeto "foto" al array "galeria"
     galeria.push(foto);
-  
+
     //creo un evento "dblclick" a la imagen que según el contenedor donde se encuentra cambia al otro y actualiza su ubicación en el objeto
     foto.imagen.addEventListener("dblclick", function (event) {
-        if (foto.ubicacion == fototecaCont){
-            foto.ubicacion = galeriaCont;
-            foto.class = "fotoGaleria"
-            imagen.classList.remove("fotoFototeca")
-        }else{
-            foto.ubicacion = fototecaCont;
-            foto.class = "fotoFototeca"
-            imagen.classList.remove("fotoGaleria")
+        foto.imagen.classList.add("fadeOut") //la clase "fadeOut" hará que sea más suave el cambio de un contenedor a otro
+
+
+        setTimeout(myTimer, 400); //doy un margen de 400 milisegundos para que se ejecute la animación FadeOut antes de hacer el cambio de imagen
+
+        function myTimer() {
+            if (foto.ubicacion == fototecaCont) {
+                foto.ubicacion = galeriaCont; //actualizo la ubicación de la imagen en su objeto
+                foto.class = "fotoGaleria" //actualizo la clase asociada
+                imagen.classList.remove("fotoFototeca")
+            } else {
+                foto.ubicacion = fototecaCont;
+                foto.class = "fotoFototeca"
+                imagen.classList.remove("fotoGaleria")
+            }
+
+            foto.ubicacion.appendChild(foto.imagen) //agrego la imagen al contenedor correspondiente
+            imagen.classList.remove("fadeOut") //actualizo las classes
+            foto.imagen.classList.add(foto.class)
+
         }
 
-        foto.imagen.classList.add(foto.class)
-        foto.ubicacion.appendChild(foto.imagen)
+
+
     })
-    
 
-    
+
+
 }
-
