@@ -86,3 +86,22 @@ h2 {
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.contImgStyle {
+    position: relative;
+}
+
+.lightboxBtn {
+    display: none;
+    position: absolute;
+    font-size: 14px;
+    font-weight: 700;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    padding: 0 2px 2px 2px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.6);
+    animation: fadeIn 2s;
+}

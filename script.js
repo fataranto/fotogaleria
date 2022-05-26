@@ -18,9 +18,15 @@ for (let i = 0; i < fotos.length; i++) {
     //... y le asigno la ubicación de l aimagen
     imagen.src = `./img/${siguienteFoto}.jpg`;
     imagen.classList.add("fotoFototeca");
-    contenedorImg = document.createElement("div");
+    //v2.0 ya no manipulo directamente la imagen, creo un contenedor div para luego poder agregarle un botón para activar el lightbox. También podría utilizar este contenedor para mostrar una descripción de la imagen
+    let contenedorImg = document.createElement("div");
     contenedorImg.classList.add("contImgStyle");
     contenedorImg.appendChild(imagen);
+    let openLightboxBtn = document.createElement("div");
+    openLightboxBtn.textContent = "[·]";
+    openLightboxBtn.classList.add("lightboxBtn");
+    contenedorImg.appendChild(openLightboxBtn);
+
 
     //cargo la imagen en la fototeca
     fototecaCont.appendChild(contenedorImg);
@@ -32,7 +38,8 @@ for (let i = 0; i < fotos.length; i++) {
         "ubicacion": fototecaCont,
         "imagen": imagen, //ya no cargaré la imagen sola, sino el "divFoto" que es la imagen dentro de un div
         "class": "fotoFototeca",
-        "contImg": contenedorImg
+        "contImg": contenedorImg,
+        "lightBoxBtn": openLightboxBtn
     }
 
     //agrego el objeto "foto" al array "galeria"
@@ -49,11 +56,14 @@ for (let i = 0; i < fotos.length; i++) {
             if (foto.ubicacion == fototecaCont) {
                 foto.ubicacion = galeriaCont; //actualizo la ubicación de la imagen en su objeto
                 foto.class = "fotoGaleria" //actualizo la clase asociada
-                imagen.classList.remove("fotoFototeca")
+                imagen.classList.remove("fotoFototeca");
+                foto.lightBoxBtn.style.display = "block";
             } else {
                 foto.ubicacion = fototecaCont;
-                foto.class = "fotoFototeca"
-                imagen.classList.remove("fotoGaleria")
+                foto.class = "fotoFototeca";
+                imagen.classList.remove("fotoGaleria");
+                foto.lightBoxBtn.style.display = "none";
+
             }
 
             foto.ubicacion.appendChild(foto.contImg) //agrego la imagen al contenedor correspondiente
@@ -62,4 +72,7 @@ for (let i = 0; i < fotos.length; i++) {
 
         }
     })
+
+
+
 }
