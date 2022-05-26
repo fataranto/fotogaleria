@@ -18,17 +18,21 @@ for (let i = 0; i < fotos.length; i++) {
     //... y le asigno la ubicación de l aimagen
     imagen.src = `./img/${siguienteFoto}.jpg`;
     imagen.classList.add("fotoFototeca");
+    contenedorImg = document.createElement("div");
+    contenedorImg.classList.add("contImgStyle");
+    contenedorImg.appendChild(imagen);
 
     //cargo la imagen en la fototeca
-    fototecaCont.appendChild(imagen);
+    fototecaCont.appendChild(contenedorImg);
 
     //creo un objeto "foto" almacenando los datos que vaya necesitando
     let foto = {
         "nombre": fotos[i],
         "src": `./img/${siguienteFoto}.jpg`,
         "ubicacion": fototecaCont,
-        "imagen": imagen,
-        "class": "fotoFototeca"
+        "imagen": imagen, //ya no cargaré la imagen sola, sino el "divFoto" que es la imagen dentro de un div
+        "class": "fotoFototeca",
+        "contImg": contenedorImg
     }
 
     //agrego el objeto "foto" al array "galeria"
@@ -52,7 +56,7 @@ for (let i = 0; i < fotos.length; i++) {
                 imagen.classList.remove("fotoGaleria")
             }
 
-            foto.ubicacion.appendChild(foto.imagen) //agrego la imagen al contenedor correspondiente
+            foto.ubicacion.appendChild(foto.contImg) //agrego la imagen al contenedor correspondiente
             imagen.classList.remove("fadeOut") //actualizo las classes
             foto.imagen.classList.add(foto.class)
 
