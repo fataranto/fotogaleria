@@ -85,11 +85,15 @@ for (let i = 0; i < fotos.length; i++) {
         //console.log(selLightbox, this.previousElementSibling.src);
 
         let lightbox = document.querySelector("#lightbox");
-        lightbox.style.display = "block";
+        lightbox.style.display = "flex";
 
         let imagen_lightbox = document.querySelector("#imagen_lightbox");
 
         imagen_lightbox.src = currentImg;
+
+        lightbox.addEventListener("click", function(event) {
+            this.style.display = "none";
+        })
 
     })
 

@@ -34,21 +34,7 @@ h2 {
 }
 
 
-#lightbox {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    opacity: 0.92;
-}
 
-#anterior,
-#siguiente {
-    display: none;
-}
 
 .fotoFototeca {
     height: 80px;
@@ -91,6 +77,32 @@ h2 {
     position: relative;
 }
 
+
+/***    ligitbox    ***/
+#lightbox {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.92);
+/*     justify-content: space-between;
+    flex-direction: row; */
+    align-items: center;
+    gap: 120px;
+}
+
+#anterior,
+#siguiente {
+    width: 25px;
+    padding: 0 25px;
+}
+
+#siguiente {
+    transform: rotate(180deg);
+}
+
 .lightboxBtn {
     display: none;
     position: absolute;
@@ -110,3 +122,8 @@ h2 {
     color: rgba(255, 255, 255, 0.9);
     transition: 0.5s;
 }
+
+#imagen_lightbox {
+    flex-grow: 1;
+}
+/***    end ligitbox    ***/
