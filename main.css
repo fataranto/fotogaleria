@@ -69,7 +69,7 @@ h2 {
 }
 
 .fadeOut {
-    animation: fadeOut 1s;
+    animation: fadeOut 1.5s;
 }
 
 .fotoGaleria:hover {
