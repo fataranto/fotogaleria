@@ -57,11 +57,5 @@ for (let i = 0; i < fotos.length; i++) {
             foto.imagen.classList.add(foto.class)
 
         }
-
-
-
     })
-
-
-
 }
