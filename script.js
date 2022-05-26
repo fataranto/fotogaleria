@@ -1,6 +1,6 @@
 // Estado de la app
 
-let fotos = ["casa1", "casa2", "casa3", "casa4", "casa5", "casa6", "casa7", "casa8"];
+const fotos = ["casa1", "casa2", "casa3", "casa4", "casa5", "casa6", "casa7", "casa8"];
 
 let galeria = []; // creo un array donde guardaré toda la info de las imágenes como objetos, guardaré en todo momento cambios en la misma como ser la ubicación, de manera que al hacer doble click, dependiendo de la ubicación donde se encuentre cambiará y actualizará 
 
