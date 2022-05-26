@@ -73,6 +73,26 @@ for (let i = 0; i < fotos.length; i++) {
         }
     })
 
+    /*Botón que activa el lightbox */
+    foto.lightBoxBtn.addEventListener("click", function (event) {
+        //console.log(this);
+        let selLightbox = []; //defino un array en el cual voy a guardar todas las imágenes que actualmente están en la galería
+        galeria.forEach(index => {
+            index.class=="fotoGaleria" && selLightbox.push(index.src);
+        });
+
+        let currentImg = this.previousElementSibling.src // selecciono la foto desde la cual se lanzó el evento para abrir el lightbox con esa imagen
+        //console.log(selLightbox, this.previousElementSibling.src);
+
+        let lightbox = document.querySelector("#lightbox");
+        lightbox.style.display = "block";
+
+        let imagen_lightbox = document.querySelector("#imagen_lightbox");
+
+        imagen_lightbox.src = currentImg;
+
+    })
+
 
 
 }
