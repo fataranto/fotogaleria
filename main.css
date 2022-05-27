@@ -6,11 +6,11 @@ body {
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 22px;
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 @keyframes fadeIn {
@@ -107,20 +107,21 @@ h2 {
 .lightboxBtn {
     display: none;
     position: absolute;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 20px;
+    /* font-weight: 700; */
     top: 15px;
     right: 15px;
     cursor: pointer;
     padding: 0 2px 2px 2px;
-    border-radius: 3px; 
+    /* border-radius: 3px; 
     background-color: rgba(0, 0, 0, 0.6);
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.6); */
     animation: fadeIn 2s;
 }
 
 .lightboxBtn:hover {
-    color: rgba(255, 255, 255, 0.9);
+    /* color: rgba(255, 255, 255, 0.9); */
+    text-shadow: 0 0 5px rgba(233, 223, 223, 0.92);
     transition: 0.5s;
 }
 

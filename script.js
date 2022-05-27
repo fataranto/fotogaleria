@@ -24,7 +24,7 @@ for (let i = 0; i < fotos.length; i++) {
     contenedorImg.classList.add("contImgStyle");
     contenedorImg.appendChild(imagen);
     let openLightboxBtn = document.createElement("div");
-    openLightboxBtn.textContent = "[ · ]";
+    openLightboxBtn.innerHTML = "&#x1F50D";
     openLightboxBtn.classList.add("lightboxBtn");
     contenedorImg.appendChild(openLightboxBtn);
 
