@@ -17,7 +17,7 @@ for (let i = 0; i < fotos.length; i++) {
     // creo un objeto "img"...
     let imagen = document.createElement("img");
     //... y le asigno la ubicación de l aimagen
-    imagen.src = `/img/${siguienteFoto}.jpg`;
+    imagen.src = `./img/${siguienteFoto}.jpg`;
     imagen.classList.add("fotoFototeca");
     //v2.0 ya no manipulo directamente la imagen, creo un contenedor div para luego poder agregarle un botón para activar el lightbox. También podría utilizar este contenedor para mostrar una descripción de la imagen
     let contenedorImg = document.createElement("div");
@@ -35,7 +35,7 @@ for (let i = 0; i < fotos.length; i++) {
     //creo un objeto "foto" almacenando los datos que vaya necesitando
     let foto = {
         "nombre": fotos[i],
-        "src": `/img/${siguienteFoto}.jpg`,
+        "src": `./img/${siguienteFoto}.jpg`,
         "ubicacion": fototecaCont,
         "imagen": imagen, //ya no cargaré la imagen sola, sino el "divFoto" que es la imagen dentro de un div
         "class": "fotoFototeca",
