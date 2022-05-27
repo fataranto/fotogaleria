@@ -7,6 +7,7 @@ let galeria = []; // creo un array donde guardaré toda la info de las imágenes
 //almaceno como constantes los contenedores #fototeca y #galeria para una más fácil referencia cuando necesite mover una foto de un lugar a otro
 const fototecaCont = document.querySelector("#fototeca");
 const galeriaCont = document.querySelector("#galeria");
+let lightboxGallery = [];
 
 
 
@@ -16,14 +17,14 @@ for (let i = 0; i < fotos.length; i++) {
     // creo un objeto "img"...
     let imagen = document.createElement("img");
     //... y le asigno la ubicación de l aimagen
-    imagen.src = `./img/${siguienteFoto}.jpg`;
+    imagen.src = `/img/${siguienteFoto}.jpg`;
     imagen.classList.add("fotoFototeca");
     //v2.0 ya no manipulo directamente la imagen, creo un contenedor div para luego poder agregarle un botón para activar el lightbox. También podría utilizar este contenedor para mostrar una descripción de la imagen
     let contenedorImg = document.createElement("div");
     contenedorImg.classList.add("contImgStyle");
     contenedorImg.appendChild(imagen);
     let openLightboxBtn = document.createElement("div");
-    openLightboxBtn.textContent = "[·]";
+    openLightboxBtn.textContent = "[ · ]";
     openLightboxBtn.classList.add("lightboxBtn");
     contenedorImg.appendChild(openLightboxBtn);
 
@@ -34,7 +35,7 @@ for (let i = 0; i < fotos.length; i++) {
     //creo un objeto "foto" almacenando los datos que vaya necesitando
     let foto = {
         "nombre": fotos[i],
-        "src": `./img/${siguienteFoto}.jpg`,
+        "src": `/img/${siguienteFoto}.jpg`,
         "ubicacion": fototecaCont,
         "imagen": imagen, //ya no cargaré la imagen sola, sino el "divFoto" que es la imagen dentro de un div
         "class": "fotoFototeca",
@@ -75,14 +76,14 @@ for (let i = 0; i < fotos.length; i++) {
 
     /*Botón que activa el lightbox */
     foto.lightBoxBtn.addEventListener("click", function (event) {
-        //console.log(this);
         let selLightbox = []; //defino un array en el cual voy a guardar todas las imágenes que actualmente están en la galería
         galeria.forEach(index => {
-            index.class=="fotoGaleria" && selLightbox.push(index.src);
+            index.class == "fotoGaleria" && selLightbox.push(index.imagen.src);
         });
-
+        lightboxGallery = selLightbox;
+        //console.log(lightboxGallery);
         let currentImg = this.previousElementSibling.src // selecciono la foto desde la cual se lanzó el evento para abrir el lightbox con esa imagen
-        //console.log(selLightbox, this.previousElementSibling.src);
+
 
         let lightbox = document.querySelector("#lightbox");
         lightbox.style.display = "flex";
@@ -91,12 +92,56 @@ for (let i = 0; i < fotos.length; i++) {
 
         imagen_lightbox.src = currentImg;
 
-        lightbox.addEventListener("click", function(event) {
-            this.style.display = "none";
+        let cont_imagen_lightbox = document.querySelector("#cont_imagen_lightbox");
+
+
+        cont_imagen_lightbox.addEventListener("click", function (event) {
+
+            lightbox.style.display = "none";
         })
+
+
 
     })
 
 
 
 }
+
+
+
+let siguiente = document.querySelector("#siguiente");
+siguiente.addEventListener("click", function () {
+    //lightboxGallery //array que contiene las imgs de la galería
+
+    let lightboxImg = document.querySelector("#imagen_lightbox");
+    let currentImg = document.querySelector("#imagen_lightbox").src;
+    let nextImg = lightboxGallery.indexOf(currentImg) + 1;
+
+    if (nextImg > lightboxGallery.length - 1) {
+        nextImg = 0;
+    }
+
+    console.log(currentImg);
+    lightboxImg.src = lightboxGallery[nextImg];
+    console.log(currentImg);
+
+})
+
+let anterior = document.querySelector("#anterior");
+anterior.addEventListener("click", function () {
+    //lightboxGallery //array que contiene las imgs de la galería
+
+    let lightboxImg = document.querySelector("#imagen_lightbox");
+    let currentImg = document.querySelector("#imagen_lightbox").src;
+    let nextImg = lightboxGallery.indexOf(currentImg) - 1;
+
+    if (nextImg < 0) {
+        nextImg = lightboxGallery.length - 1;
+    }
+
+    console.log(currentImg);
+    lightboxImg.src = lightboxGallery[nextImg];
+    console.log(currentImg);
+
+})

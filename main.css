@@ -78,7 +78,7 @@ h2 {
 }
 
 
-/***    ligitbox    ***/
+/***    lightbox    ***/
 #lightbox {
     display: none;
     position: fixed;
@@ -97,6 +97,7 @@ h2 {
 #siguiente {
     width: 25px;
     padding: 0 25px;
+    cursor: pointer;
 }
 
 #siguiente {
@@ -123,7 +124,11 @@ h2 {
     transition: 0.5s;
 }
 
-#imagen_lightbox {
+#cont_imagen_lightbox {
     flex-grow: 1;
+}
+
+#imagen_lightbox {
+    width: 100%;
 }
 /***    end ligitbox    ***/
