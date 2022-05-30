@@ -57,7 +57,7 @@ for (let i = 0; i < fotos.length; i++) {
 
         foto.imagen.classList.add("fadeOut") //la clase "fadeOut" hará que sea más suave el cambio de un contenedor a otro
 
-
+        //foto.imagen.addEventListener("animationend", myTimer);
 
 
         setTimeout(myTimer, 400); //doy un margen de 400 milisegundos para que se ejecute la animación FadeOut antes de hacer el cambio de imagen.
@@ -74,6 +74,7 @@ for (let i = 0; i < fotos.length; i++) {
                 foto.class = "fotoFototeca";
                 imagen.classList.remove("fotoGaleria");
                 foto.lightBoxBtn.style.display = "none";
+
 
             }
 
@@ -96,7 +97,9 @@ for (let i = 0; i < fotos.length; i++) {
 
         //selecciono el lightbox y lo hago visible
         let lightbox = document.querySelector("#lightbox");
+        lightbox.classList.add("fadeIn");
         lightbox.style.display = "flex";
+
 
         //si hay una sola imagen oculto las flechas de navegación
         lightboxGallery.length == 1 ? visibility = "hidden" : visibility = "visible";
@@ -112,8 +115,18 @@ for (let i = 0; i < fotos.length; i++) {
 
 
         cont_imagen_lightbox.addEventListener("click", function (event) {
+            lightbox.classList.add("fadeOut");
 
-            lightbox.style.display = "none";
+            lightbox.addEventListener("animationend", function (event) {
+                //console.log(event);
+                if (event.animationName == "fadeOut") {
+                    lightbox.classList.remove("fadeOut");
+                    lightbox.style.display = "none";
+                }
+
+            })
+
+
         })
 
 
