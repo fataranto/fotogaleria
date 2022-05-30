@@ -7,7 +7,9 @@ let galeria = []; // creo un array donde guardaré toda la info de las imágenes
 //almaceno como constantes los contenedores #fototeca y #galeria para una más fácil referencia cuando necesite mover una foto de un lugar a otro
 const fototecaCont = document.querySelector("#fototeca");
 const galeriaCont = document.querySelector("#galeria");
-let lightboxGallery = [];
+
+let lightboxGallery = []; //cuando abro el lightbox cargo aquí todas las fotos que en ese momento se encuentran en la galería
+let visibility;
 
 
 
@@ -16,13 +18,17 @@ for (let i = 0; i < fotos.length; i++) {
     let siguienteFoto = fotos[i];
     // creo un objeto "img"...
     let imagen = document.createElement("img");
-    //... y le asigno la ubicación de l aimagen
+    //... y le asigno la ubicación de la imagen
     imagen.src = `./img/${siguienteFoto}.jpg`;
     imagen.classList.add("fotoFototeca");
     //v2.0 ya no manipulo directamente la imagen, creo un contenedor div para luego poder agregarle un botón para activar el lightbox. También podría utilizar este contenedor para mostrar una descripción de la imagen
+
+    //creo un contenedor para cada imagen y cargo la foto
     let contenedorImg = document.createElement("div");
     contenedorImg.classList.add("contImgStyle");
     contenedorImg.appendChild(imagen);
+
+    //creo un contenedor y cargo un incono de una lupa que se utilizará para abrir el lightbox
     let openLightboxBtn = document.createElement("div");
     openLightboxBtn.innerHTML = "&#x1F50D";
     openLightboxBtn.classList.add("lightboxBtn");
@@ -37,7 +43,7 @@ for (let i = 0; i < fotos.length; i++) {
         "nombre": fotos[i],
         "src": `./img/${siguienteFoto}.jpg`,
         "ubicacion": fototecaCont,
-        "imagen": imagen, //ya no cargaré la imagen sola, sino el "divFoto" que es la imagen dentro de un div
+        "imagen": imagen,
         "class": "fotoFototeca",
         "contImg": contenedorImg,
         "lightBoxBtn": openLightboxBtn
@@ -47,11 +53,15 @@ for (let i = 0; i < fotos.length; i++) {
     galeria.push(foto);
 
     //creo un evento "dblclick" a la imagen que según el contenedor donde se encuentra cambia al otro y actualiza su ubicación en el objeto
-    foto.imagen.addEventListener("dblclick", function (event) {
+    foto.imagen.addEventListener("dblclick", function () {
+
         foto.imagen.classList.add("fadeOut") //la clase "fadeOut" hará que sea más suave el cambio de un contenedor a otro
 
 
-        setTimeout(myTimer, 400); //doy un margen de 400 milisegundos para que se ejecute la animación FadeOut antes de hacer el cambio de imagen
+
+
+        setTimeout(myTimer, 400); //doy un margen de 400 milisegundos para que se ejecute la animación FadeOut antes de hacer el cambio de imagen.
+        //Estoy probando con "x.addEventListener("animationend", myEndFunction);" en principio funciona, pero de la manera que lo he creado me obliga a hacer varios cambios porque tanto las imágenes de la galería como las de la fototeca tiene la misma clase .fadeOut y, en principio, separando las clases, también se producen efectos no deseados y tendría que investigarlo más. 
 
         function myTimer() {
             if (foto.ubicacion == fototecaCont) {
@@ -75,7 +85,7 @@ for (let i = 0; i < fotos.length; i++) {
     })
 
     /*Botón que activa el lightbox */
-    foto.lightBoxBtn.addEventListener("click", function (event) {
+    foto.lightBoxBtn.addEventListener("click", function () {
         let selLightbox = []; //defino un array en el cual voy a guardar todas las imágenes que actualmente están en la galería
         galeria.forEach(index => {
             index.class == "fotoGaleria" && selLightbox.push(index.imagen.src);
@@ -84,9 +94,15 @@ for (let i = 0; i < fotos.length; i++) {
         //console.log(lightboxGallery);
         let currentImg = this.previousElementSibling.src // selecciono la foto desde la cual se lanzó el evento para abrir el lightbox con esa imagen
 
-
+        //selecciono el lightbox y lo hago visible
         let lightbox = document.querySelector("#lightbox");
         lightbox.style.display = "flex";
+
+        //si hay una sola imagen oculto las flechas de navegación
+        lightboxGallery.length == 1 ? visibility = "hidden" : visibility = "visible";
+
+        document.querySelector("#anterior").style.visibility = visibility;
+        document.querySelector("#siguiente").style.visibility = visibility;
 
         let imagen_lightbox = document.querySelector("#imagen_lightbox");
 

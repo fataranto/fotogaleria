@@ -35,6 +35,15 @@ h2 {
 
 
 
+@keyframes fadeOut_galeria {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
 
 .fotoFototeca {
     height: 80px;
@@ -56,6 +65,10 @@ h2 {
 
 .fadeOut {
     animation: fadeOut 1.5s;
+}
+
+.fadeOut_galeria {
+    animation: fadeOut_galeria 1.5s;
 }
 
 .fotoGaleria:hover {
