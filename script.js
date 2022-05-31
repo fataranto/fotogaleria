@@ -9,7 +9,7 @@ const fototecaCont = document.querySelector("#fototeca");
 const galeriaCont = document.querySelector("#galeria");
 
 let lightboxGallery = []; //cuando abro el lightbox cargo aquí todas las fotos que en ese momento se encuentran en la galería
-let visibility;
+let visibility; //lo utilizo para ocultar las flechas del lightbox en caso de tener una sola imagen
 
 
 
@@ -46,7 +46,7 @@ for (let i = 0; i < fotos.length; i++) {
         "imagen": imagen,
         "class": "fotoFototeca",
         "contImg": contenedorImg,
-        "lightBoxBtn": openLightboxBtn
+        "lightboxBtn": openLightboxBtn
     }
 
     //agrego el objeto "foto" al array "galeria"
@@ -57,42 +57,36 @@ for (let i = 0; i < fotos.length; i++) {
 
         foto.imagen.classList.add("fadeOut") //la clase "fadeOut" hará que sea más suave el cambio de un contenedor a otro
 
-        //foto.imagen.addEventListener("animationend", myTimer);
-
-
-        setTimeout(myTimer, 400); //doy un margen de 400 milisegundos para que se ejecute la animación FadeOut antes de hacer el cambio de imagen.
+        setTimeout(updateFoto, 400); //doy un margen de 400 milisegundos para que se ejecute la animación FadeOut antes de hacer el cambio de imagen.
         //Estoy probando con "x.addEventListener("animationend", myEndFunction);" en principio funciona, pero de la manera que lo he creado me obliga a hacer varios cambios porque tanto las imágenes de la galería como las de la fototeca tiene la misma clase .fadeOut y, en principio, separando las clases, también se producen efectos no deseados y tendría que investigarlo más. 
 
-        function myTimer() {
+        function updateFoto() {
             if (foto.ubicacion == fototecaCont) {
                 foto.ubicacion = galeriaCont; //actualizo la ubicación de la imagen en su objeto
                 foto.class = "fotoGaleria" //actualizo la clase asociada
                 imagen.classList.remove("fotoFototeca");
-                foto.lightBoxBtn.style.display = "block";
+                foto.lightboxBtn.style.display = "block";
             } else {
                 foto.ubicacion = fototecaCont;
                 foto.class = "fotoFototeca";
                 imagen.classList.remove("fotoGaleria");
-                foto.lightBoxBtn.style.display = "none";
-
-
+                foto.lightboxBtn.style.display = "none";
             }
 
             foto.ubicacion.appendChild(foto.contImg) //agrego la imagen al contenedor correspondiente
             imagen.classList.remove("fadeOut") //actualizo las classes
             foto.imagen.classList.add(foto.class)
-
         }
     })
 
     /*Botón que activa el lightbox */
-    foto.lightBoxBtn.addEventListener("click", function () {
+    //A cada imagen le agrego un botón(lupa) para abrir el lightbox en una ventana modal. 
+    foto.lightboxBtn.addEventListener("click", function () {
         let selLightbox = []; //defino un array en el cual voy a guardar todas las imágenes que actualmente están en la galería
         galeria.forEach(index => {
             index.class == "fotoGaleria" && selLightbox.push(index.imagen.src);
         });
         lightboxGallery = selLightbox;
-        //console.log(lightboxGallery);
         let currentImg = this.previousElementSibling.src // selecciono la foto desde la cual se lanzó el evento para abrir el lightbox con esa imagen
 
         //selecciono el lightbox y lo hago visible
@@ -113,35 +107,23 @@ for (let i = 0; i < fotos.length; i++) {
 
         let cont_imagen_lightbox = document.querySelector("#cont_imagen_lightbox");
 
-
+        //Cierro el lightbox haciendo clicl sobre la imagen
         cont_imagen_lightbox.addEventListener("click", function (event) {
             lightbox.classList.add("fadeOut");
 
             lightbox.addEventListener("animationend", function (event) {
-                //console.log(event);
                 if (event.animationName == "fadeOut") {
                     lightbox.classList.remove("fadeOut");
                     lightbox.style.display = "none";
                 }
-
             })
-
-
         })
-
-
-
     })
-
-
-
 }
 
-
-
+//Asigno interacción a las flechas para recorrer las imágenes de la galería desde el lightbox
 let siguiente = document.querySelector("#siguiente");
 siguiente.addEventListener("click", function () {
-    //lightboxGallery //array que contiene las imgs de la galería
 
     let lightboxImg = document.querySelector("#imagen_lightbox");
     let currentImg = document.querySelector("#imagen_lightbox").src;
@@ -150,16 +132,11 @@ siguiente.addEventListener("click", function () {
     if (nextImg > lightboxGallery.length - 1) {
         nextImg = 0;
     }
-
-    console.log(currentImg);
     lightboxImg.src = lightboxGallery[nextImg];
-    console.log(currentImg);
-
 })
 
 let anterior = document.querySelector("#anterior");
 anterior.addEventListener("click", function () {
-    //lightboxGallery //array que contiene las imgs de la galería
 
     let lightboxImg = document.querySelector("#imagen_lightbox");
     let currentImg = document.querySelector("#imagen_lightbox").src;
@@ -169,8 +146,5 @@ anterior.addEventListener("click", function () {
         nextImg = lightboxGallery.length - 1;
     }
 
-    console.log(currentImg);
     lightboxImg.src = lightboxGallery[nextImg];
-    console.log(currentImg);
-
 })
